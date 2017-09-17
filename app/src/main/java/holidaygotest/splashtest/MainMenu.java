@@ -9,6 +9,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,6 +22,7 @@ public class MainMenu extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d("app","Entered activity: MainMenu");
         setContentView(R.layout.activity_mainmenu);
 
 
@@ -36,6 +38,7 @@ public class MainMenu extends Activity
     {
         //CODE GOES HERE
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainMenu.this);
+        Log.d("app","Version button pressed");
         dialog.setMessage("About HolidayGo Version 1.0\n\n" + "This is the first current build of HolidayGo, this build may contain bugs and may crash - use at your own risk!");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
@@ -53,6 +56,7 @@ public class MainMenu extends Activity
     {
         //CODE GOES HERE
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainMenu.this);
+        Log.d("app","Load button pressed");
         dialog.setMessage("Load: \n\n(Nothing to see here!)");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
@@ -69,6 +73,7 @@ public class MainMenu extends Activity
     public void goToLocation(View view)
     {
         //CODE GOES HERE
+        Log.d("app","Entering the UseLocation activity...");
         Intent intent = new Intent(this, UseLocation.class);
         startActivity(intent);
     }

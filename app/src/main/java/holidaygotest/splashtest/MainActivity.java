@@ -10,6 +10,7 @@ import android.provider.Settings;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.widget.ProgressBar;
 
@@ -21,6 +22,7 @@ public class MainActivity extends Activity
     //Code submited by user on Stackoverflow -> link: https://stackoverflow.com/questions/10311834/how-to-check-if-location-services-are-enabled/21019047#21019047
     private void checkGPSStatus()
     {
+        Log.d("app","Checking GPS status...");
         LocationManager locationManager = null;
         boolean gps_enabled = false;
         boolean network_enabled = false;
@@ -84,6 +86,7 @@ public class MainActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d("app","Entered activity: MainActivity");
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 

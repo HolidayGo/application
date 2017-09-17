@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class UseLocation extends AppCompatActivity
@@ -15,12 +16,16 @@ public class UseLocation extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+
+        Log.d("app","Entered activity: UseLocation");
+
     }
 
     public void yesButton(View view)
     {
         //CODE GOES HERE
         Intent intent = new Intent(this, AppOptions.class);
+        Log.d("app","Yes button pressed");
         startActivity(intent);
     }
 
@@ -28,6 +33,7 @@ public class UseLocation extends AppCompatActivity
     {
         //CODE GOES HERE
         Intent intent = new Intent(this, AppOptions.class);
+        Log.d("app","No button pressed");
         startActivity(intent);
     }
 

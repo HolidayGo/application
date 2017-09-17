@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 
@@ -16,6 +17,7 @@ public class HomeActivity extends Activity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d("app","Application started");
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_home);
 
@@ -24,7 +26,7 @@ public class HomeActivity extends Activity
     //Skip button
     public void goToMainMenu(View view)
     {
-
+        Log.d("app","Entering main menu");
         Intent intent = new Intent(this, MainMenu.class);
         startActivity(intent);
     }

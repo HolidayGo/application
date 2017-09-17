@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 public class OptionCalendar extends AppCompatActivity
@@ -14,6 +15,7 @@ public class OptionCalendar extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        Log.d("app","Entered activity: OptionCalendar");
         setContentView(R.layout.activity_optioncalendar);
     }
 
@@ -21,12 +23,14 @@ public class OptionCalendar extends AppCompatActivity
     {
         //CODE GOES HERE
         Intent intent = new Intent(this, AppOptions.class);
+        Log.d("app","Confirm button pressed");
         startActivity(intent);
     }
 
     public void back(View view)
     {
         final Intent intent = new Intent(this, AppOptions.class);
+        Log.d("app","Back button pressed");
         AlertDialog show = new AlertDialog.Builder(this)
                 .setMessage("Discard changes?")
                 .setCancelable(false)
