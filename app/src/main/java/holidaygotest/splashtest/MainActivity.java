@@ -12,31 +12,46 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ProgressBar;
+
 import static android.graphics.Color.*;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity
+{
 
     //Code submited by user on Stackoverflow -> link: https://stackoverflow.com/questions/10311834/how-to-check-if-location-services-are-enabled/21019047#21019047
-    private void checkGPSStatus() {
+    private void checkGPSStatus()
+    {
         LocationManager locationManager = null;
         boolean gps_enabled = false;
         boolean network_enabled = false;
-        if (locationManager == null ) {
+        if (locationManager == null)
+        {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         }
-        try {
+        try
+        {
             gps_enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        } catch (Exception ex){}
-        try {
+        }
+        catch (Exception ex)
+        {
+        }
+        try
+        {
             network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        } catch (Exception ex){}
-        if ( !gps_enabled && !network_enabled ){
+        }
+        catch (Exception ex)
+        {
+        }
+        if (!gps_enabled && !network_enabled)
+        {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setMessage("GPS not enabled");
-            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+            {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface dialog, int which)
+                {
                     //this will navigate user to the device location settings screen
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(intent);
@@ -45,15 +60,16 @@ public class MainActivity extends Activity {
             AlertDialog alert = dialog.create();
             alert.show();
 
-        }
-        else//testing
+        } else//testing
         {
             AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
             dialog.setMessage("GPS not enabled");
-            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
+            {
 
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(DialogInterface dialog, int which)
+                {
                     //this will navigate user to the device location settings screen
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivity(intent);
@@ -65,7 +81,8 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
@@ -78,9 +95,11 @@ public class MainActivity extends Activity {
         //setTitle("My new title");
         //getActionBar().setIcon(R.drawable.icon2);
 
-        Runnable gpstest = new Runnable() {
+        Runnable gpstest = new Runnable()
+        {
             @Override
-            public void run(){
+            public void run()
+            {
                 Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(homeIntent);
                 finish();
@@ -95,7 +114,8 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed()
+    {
         this.moveTaskToBack(true);
     }
 
