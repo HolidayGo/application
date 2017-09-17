@@ -9,6 +9,8 @@ android:background="@drawable/background_blurred3"
 tools:layout_editor_absoluteY="81dp"
 tools:layout_editor_absoluteX="0dp">
 
+
+
 <ProgressBar
     android:id="@+id/progressBar3"
     style="?android:attr/progressBarStyle"

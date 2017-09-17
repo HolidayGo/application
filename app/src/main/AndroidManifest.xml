@@ -17,6 +17,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
+        <activity android:name=".MainMenu" />
+        <activity android:name=".UseLocation" />
+        <activity android:name=".AppOptions" />
+        <activity android:name=".OptionNorthSouth" />
+        <activity android:name=".OptionCalendar" />
+        <activity android:name=".OptionLocation" />
+        <activity android:name=".OptionHotel" />
+        <activity android:name=".OptionActivity" />
+        <activity android:name=".OptionFinalEdit" />
+        <activity android:name=".FinalShare"></activity>
     </application>
 
 </manifest>
