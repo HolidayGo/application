@@ -2,7 +2,11 @@ package holidaygotest.splashtest;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,6 +17,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.location.Geocoder;
+import android.content.Context;
+
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.util.*;
 
 public class UseLocation extends AppCompatActivity
 {
@@ -36,8 +46,7 @@ public class UseLocation extends AppCompatActivity
                         Manifest.permission.ACCESS_FINE_LOCATION
                 }, 10);
             }
-        }
-        else
+        } else
         {
             //get the last location from the GPS
             final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -52,10 +61,8 @@ public class UseLocation extends AppCompatActivity
                     public void onLocationChanged(final Location location)
                     {
 
-                        // getting location of user
-                        final double latitude = location.getLatitude();
-                        final double longitude = location.getLongitude();
-                        setLocation(latitude, longitude);
+                        //update location if changed
+                        setLocation(location);
                     }
 
                     @Override
@@ -77,14 +84,10 @@ public class UseLocation extends AppCompatActivity
                 //location updates every 30 seconds in 1km radius with the the network and GPS provider
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 1000, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
-            }
-            else
+            } else
             {
                 //print the found location to the main menu screen
-                final double latitude = location.getLatitude();
-                final double longitude = location.getLongitude();
-
-                setLocation(latitude, longitude);
+                setLocation(location);
             }
         }
 
@@ -93,11 +96,16 @@ public class UseLocation extends AppCompatActivity
         startActivity(intent);
     }
 
-    private void setLocation(double latitude, double longitude)
+    private void setLocation(Location location)
     {
-        MainMenu.userLocation = (latitude + " " + longitude);
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
 
-        Log.d("app", "Current location: " + latitude + " " + longitude);
+        String addr = convertToAddress(location);
+
+        MainMenu.userLocation = (addr);
+
+        Log.d("app", "Current location (lat/long): " + latitude + " " + longitude);
     }
 
     private void configureLocation()
@@ -130,6 +138,40 @@ public class UseLocation extends AppCompatActivity
                 }
         }
     }
+
+    private String convertToAddress(Location location)
+    {
+        String city = null;
+        String country = null;
+
+        //truncate coordinates to 3 decimal places
+        DecimalFormat df = new DecimalFormat("#.###");
+        Double latitude = Double.parseDouble(df.format(location.getLatitude()));
+        Double longitude = Double.parseDouble(df.format(location.getLongitude()));
+
+        //Get address base on location
+        Geocoder geocoder;
+
+        geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
+
+        try
+        {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+            country = addresses.get(0).getCountryName();
+            city = addresses.get(0).getLocality();
+
+            Log.d("app", "Current location string: " +city+", "+ country);
+
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return city+", "+ country;
+    }
+
 
     public void noButton(View view)
     {
