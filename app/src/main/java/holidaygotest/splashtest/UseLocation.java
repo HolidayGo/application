@@ -32,7 +32,6 @@ public class UseLocation extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-
     }
 
     public void yesButton(View view)
@@ -169,7 +168,7 @@ public class UseLocation extends AppCompatActivity
             e.printStackTrace();
         }
 
-        return city+", "+ country;
+        return city+", "+ country;      //e.g. "Auckland, New Zealand"
     }
 
 
