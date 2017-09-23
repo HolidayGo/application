@@ -175,7 +175,7 @@ public class UseLocation extends AppCompatActivity
     public void noButton(View view)
     {
         //CODE GOES HERE
-        Intent intent = new Intent(this, MainMenu.class);
+        Intent intent = new Intent(this, ManualSelectLocation.class);
         Log.d("app", "No button pressed");
         startActivity(intent);
     }
