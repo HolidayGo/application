@@ -1,36 +1,27 @@
 package holidaygotest.splashtest;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 public class UseLocation extends AppCompatActivity
 {
-    private LocationManager locationManager;
-    private LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
-
 
     }
 
@@ -43,13 +34,12 @@ public class UseLocation extends AppCompatActivity
                 requestPermissions(new String[]{
                         Manifest.permission.ACCESS_COARSE_LOCATION,
                         Manifest.permission.ACCESS_FINE_LOCATION
-                }, 1);
+                }, 10);
             }
-
         }
         else
         {
-            // get the last location from the GPS.
+            //get the last location from the GPS
             final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
@@ -87,7 +77,8 @@ public class UseLocation extends AppCompatActivity
                 //location updates every 30 seconds in 1km radius with the the network and GPS provider
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 1000, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
-            } else
+            }
+            else
             {
                 //print the found location to the main menu screen
                 final double latitude = location.getLatitude();
@@ -96,7 +87,6 @@ public class UseLocation extends AppCompatActivity
                 setLocation(latitude, longitude);
             }
         }
-
 
         Intent intent = new Intent(this, MainMenu.class);
         Log.d("app", "Yes button pressed");
@@ -107,7 +97,7 @@ public class UseLocation extends AppCompatActivity
     {
         MainMenu.userLocation = (latitude + " " + longitude);
 
-        Log.d("app", "Current location: "+latitude+" "+longitude);
+        Log.d("app", "Current location: " + latitude + " " + longitude);
     }
 
     private void configureLocation()
@@ -122,11 +112,9 @@ public class UseLocation extends AppCompatActivity
                                 Manifest.permission.ACCESS_COARSE_LOCATION,
                                 Manifest.permission.INTERNET
                         }, 10);
-                return;
             }
         }
 
-        locationManager.requestLocationUpdates("gps", 5000, 0, locationListener);
     }
 
     @Override

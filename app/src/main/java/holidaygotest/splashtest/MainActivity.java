@@ -1,18 +1,10 @@
 package holidaygotest.splashtest;
 
 import android.app.Activity;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Handler;
-import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Window;
 import android.widget.ProgressBar;
 
 import static android.graphics.Color.*;
@@ -42,8 +34,6 @@ public class MainActivity extends Activity
                 finish();
             }
         };
-
-//        checkGPSStatus();
 
         Handler h = new Handler();
         h.postDelayed(gpstest, 1000);
