@@ -25,7 +25,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.403" />
+        app:layout_constraintVertical_bias="0.403"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <ImageButton
         android:id="@+id/mainload"
@@ -45,12 +47,14 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.517" />
+        app:layout_constraintVertical_bias="0.517"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <Button
         android:id="@+id/mainversion"
-        android:layout_width="82dp"
-        android:layout_height="22dp"
+        android:layout_width="88dp"
+        android:layout_height="48dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
@@ -62,9 +66,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintVertical_bias="1.0"
-        android:onClick="versionButton"/>
+        android:onClick="versionButton"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"/>
 
-
+    <TextView
+        android:id="@+id/textLocation"
+        android:layout_width="360dp"
+        android:layout_height="66dp"
+        android:text="Current Location: "
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="18sp"/>
 
 
 </android.support.constraint.ConstraintLayout>

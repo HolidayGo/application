@@ -23,11 +23,11 @@ public class HomeActivity extends Activity
 
     }
 
-    //Skip button
+    //Start button
     public void goToMainMenu(View view)
     {
         Log.d("app","Entering main menu");
-        Intent intent = new Intent(this, MainMenu.class);
+        Intent intent = new Intent(this, UseLocation.class);
         startActivity(intent);
     }
 
