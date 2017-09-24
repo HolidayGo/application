@@ -188,7 +188,7 @@ public class UseLocation extends AppCompatActivity
         }
     }
 
-    private String convertToAddress(Location location)
+    public String convertToAddress(Location location)
     {
         String city = null;
         String country = null;
@@ -244,4 +244,6 @@ public class UseLocation extends AppCompatActivity
     {
         this.moveTaskToBack(true);
     }
+
+
 }
