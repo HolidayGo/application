@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="#f43b3b"
+        android:background="#636363"
         />
 
 
@@ -61,7 +61,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:background="#f43b3b"
+        android:background="#636363"
         />
 
     <TextView

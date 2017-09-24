@@ -11,8 +11,10 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,27 +34,32 @@ public class UseLocation extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
+
+
     }
 
     public void yesButton(View view)
     {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-        {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-            {
-                requestPermissions(new String[]{
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                }, 10);
-            }
-        } else
-        {
-            //get the last location from the GPS
-            final LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-            final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-            //if the last location cannot be found
-            if (location == null)
+        //if location is turned OFF, display popup telling user to turn it on
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            diagBox();
+        }
+        //if location is turn ON, get GPS location
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+        {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+                {
+                    requestPermissions(new String[]{
+                            Manifest.permission.ACCESS_COARSE_LOCATION,
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                    }, 10);
+                }
+            } else
             {
                 final LocationListener locationListener = new LocationListener()
                 {
@@ -77,23 +84,66 @@ public class UseLocation extends AppCompatActivity
                     @Override
                     public void onProviderDisabled(String provider)
                     {
+
                     }
                 };
+                //update location
+                locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
 
                 //location updates every 30 seconds in 1km radius with the the network and GPS provider
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 1000, locationListener);
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
-            } else
-            {
+
+                //get the last location from the GPS
+                final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
                 //print the found location to the main menu screen
                 setLocation(location);
             }
+
         }
 
         Intent intent = new Intent(this, MainMenu.class);
         Log.d("app", "Yes button pressed");
         startActivity(intent);
     }
+
+    private void diagBox()
+    {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(UseLocation.this);
+
+        dialog.setMessage("Location settings disabled\n\n" + "Location settings are turned off. Please turn on Locations to use this application. "
+                + "Or manually select your location");
+        dialog.setPositiveButton("Enable GPS", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));   //go to settings and turn on location
+
+            }
+        });
+        dialog.setNegativeButton("Manually select location", new DialogInterface.OnClickListener()
+        {
+            @Override
+            public void onClick(DialogInterface dialog, int which)
+            {
+                switchToManualSelectLocationActivity();
+            }
+        });
+        AlertDialog alert = dialog.create();
+        alert.show();
+
+    }
+
+    public void switchToManualSelectLocationActivity()
+    {
+        Intent intent = new Intent(this, ManualSelectLocation.class);
+        Log.d("app", "No button pressed");
+        startActivity(intent);
+    }
+
 
     private void setLocation(Location location)
     {
@@ -143,6 +193,8 @@ public class UseLocation extends AppCompatActivity
         String city = null;
         String country = null;
 
+        String result = null;
+
         //truncate coordinates to 3 decimal places
         DecimalFormat df = new DecimalFormat("#.###");
         Double latitude = Double.parseDouble(df.format(location.getLatitude()));
@@ -157,10 +209,17 @@ public class UseLocation extends AppCompatActivity
         {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
 
-            country = addresses.get(0).getCountryName();
-            city = addresses.get(0).getLocality();
+            if (addresses.size() > 0) //location found
+            {
+                country = addresses.get(0).getCountryName();
+                city = addresses.get(0).getLocality();
 
-            Log.d("app", "Current location string: " +city+", "+ country);
+                Log.d("app", "Current location string: " + city + ", " + country);
+                result = city + ", " + country;      //e.g. "Auckland, New Zealand"
+            } else    //unable to find location
+            {
+                result = "Unknown";
+            }
 
         }
         catch (IOException e)
@@ -168,7 +227,7 @@ public class UseLocation extends AppCompatActivity
             e.printStackTrace();
         }
 
-        return city+", "+ country;      //e.g. "Auckland, New Zealand"
+        return result;
     }
 
 

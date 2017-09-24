@@ -52,7 +52,6 @@ public class MainMenu extends Activity
         dialog.setMessage("About HolidayGo Version 1.0\n\n" + "This is the first current build of HolidayGo, this build may contain bugs and may crash - use at your own risk!");
         dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener()
         {
-
             @Override
             public void onClick(DialogInterface dialog, int which)
             {
