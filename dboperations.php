@@ -1,6 +1,6 @@
 <?php
  
-class DBOperations{
+class dboperations{
  
     private $host = 'localhost';
     private $user = 'id2489602_holiday';
