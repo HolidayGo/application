@@ -1,8 +1,8 @@
 <?php
  
-require_once 'DBOperations.php';
+require_once 'dboperations.php';
  
-class Functions{
+class functions{
  
 private $db;
  
