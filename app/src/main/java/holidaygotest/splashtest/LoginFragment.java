@@ -1,3 +1,4 @@
+/*
 package holidaygotest.splashtest;
 
 import android.app.Fragment;
@@ -14,14 +15,14 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.GetMeThere.GetMeThereLogin.models.ServerRequest;
-import com.GetMeThere.GetMeThereLogin.models.ServerResponse;
-import com.GetMeThere.GetMeThereLogin.models.User;
+//import com.GetMeThere.GetMeThereLogin.models.ServerRequest;
+//import com.GetMeThere.GetMeThereLogin.models.ServerResponse;
+//import com.GetMeThere.GetMeThereLogin.models.User;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+//import retrofit2.Call;
+//import retrofit2.Callback;
+//import retrofit2.Retrofit;
+//import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class LoginFragment extends Fragment implements View.OnClickListener{
@@ -146,3 +147,4 @@ public class LoginFragment extends Fragment implements View.OnClickListener{
         ft.commit();
     }
 }
+*/

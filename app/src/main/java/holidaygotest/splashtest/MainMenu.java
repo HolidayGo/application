@@ -20,8 +20,6 @@ import android.widget.TextView;
 public class MainMenu extends Activity
 {
     public TextView textLocation;
-    public static String userLocation;
-
 
 
     @Override
@@ -33,7 +31,7 @@ public class MainMenu extends Activity
 
         textLocation = findViewById(R.id.textLocation);
 
-        textLocation.setText("Current Location: "+userLocation);
+        textLocation.setText("Current Location: "+UserData.userLocation);
 
         //Button options
         Button versionButton = (Button) findViewById(R.id.mainversion);

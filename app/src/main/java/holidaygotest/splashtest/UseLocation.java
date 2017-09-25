@@ -152,7 +152,7 @@ public class UseLocation extends AppCompatActivity
 
         String addr = convertToAddress(location);
 
-        MainMenu.userLocation = (addr);
+        UserData.userLocation = (addr);
 
         Log.d("app", "Current location (lat/long): " + latitude + " " + longitude);
     }

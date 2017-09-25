@@ -1,3 +1,4 @@
+/*
 package holidaygotest.splashtest;
 
 import android.app.Fragment;
@@ -128,3 +129,4 @@ public class RegisterFragment extends Fragment  implements View.OnClickListener{
         ft.commit();
     }
 }
+*/

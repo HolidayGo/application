@@ -169,9 +169,9 @@ public class ManualSelectLocation extends AppCompatActivity
     {
         Log.d("app", "Next button pressed...");
 
-        if(selectedCity != null && selectedCountry != null)     //user selected a location
+        if(selectedCity != "Select City" && selectedCountry != "Select Country")     //user selected a location
         {
-            MainMenu.userLocation = selectedCity+", "+ selectedCountry;
+            UserData.userLocation = selectedCity+", "+ selectedCountry;
 
             Intent intent = new Intent(this, MainMenu.class);
             startActivity(intent);

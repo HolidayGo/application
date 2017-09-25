@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.icu.text.DecimalFormat;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,31 +61,31 @@ public class AppOptions extends AppCompatActivity
                 }
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void afterTextChanged(Editable editable)
             {
                 budgetBox.removeTextChangedListener(this);
+                String input = editable.toString();
+                Long formattedValue = null;
+                String formattedString = null;
 
                 try
                 {
-                    String input = editable.toString();
-                    int number;
                     if (input.contains(","))
                     {
-                        input = input.replaceAll(",", "");
+                        input = input.replaceAll(",", "");  //clear any existing commas created previously
                     }
-                    number = Integer.parseInt(input);      //convert to decimal
-                    DecimalFormat formatter = null;
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N)
-                    {
-                        formatter = new DecimalFormat("#,###,###");
-                        String formattedString = formatter.format(number);
-                        budgetBox.setText("$"+formattedString);
-                    }
+                    formattedValue = Long.parseLong(input);        //convert user input into a long
 
+                    DecimalFormat formatter = new DecimalFormat("#,###,###");
+                    formattedString = formatter.format(formattedValue);
 
-                    budgetBox.setSelection(budgetBox.getText().length());
-                    // to place the cursor at the end of text
+                    budgetBox.setText(formattedString); //update values in box to inclure commas
+
+                    budgetBox.setSelection(budgetBox.getText().length());   //change marker location accordingly
+
+                    budgetBox.setSelection(budgetBox.getText().length());   // to place the cursor at the end of text
                 }
                 catch (Exception e)
                 {
@@ -92,19 +94,8 @@ public class AppOptions extends AppCompatActivity
 
                 budgetBox.addTextChangedListener(this);
 
-                /*String input = budgetBox.getText().toString();
-
-                Log.d("editbox", input);
-
-                if (budgetBox.getText().toString().equals(""))
-                {
-                    budgetBox.setText("Enter Budget");
-                }
-                if(editable.equals("0"))
-                {
-                    budgetBox.setText("$"+input);
-                }*/
-
+                UserData.userBudget = Integer.parseInt(input);     //store selected budget as an int
+                UserData.userBudgetString = formattedString;
             }
 
         });
@@ -118,7 +109,7 @@ public class AppOptions extends AppCompatActivity
     public void nextButton(View view)
     {
         //CODE GOES HERE
-        Log.d("app", "Next button pressed...");
+        Log.d("app", "Next button pressed...budget is: "+UserData.userBudgetString+" and "+UserData.userBudget);
 
         Intent intent = new Intent(this, OptionNorthSouth.class);
         startActivity(intent);
