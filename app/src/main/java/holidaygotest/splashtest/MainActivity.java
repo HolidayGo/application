@@ -29,7 +29,7 @@ public class MainActivity extends Activity
             @Override
             public void run()
             {
-                Intent homeIntent = new Intent(MainActivity.this, HomeActivity.class);
+                Intent homeIntent = new Intent(MainActivity.this, UseLocation.class);
                 startActivity(homeIntent);
                 finish();
             }

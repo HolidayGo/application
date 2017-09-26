@@ -96,7 +96,7 @@ public class UseLocation extends AppCompatActivity
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
 
                 //get the last location from the GPS
-                final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
                 //print the found location to the main menu screen
                 setLocation(location);
@@ -132,6 +132,7 @@ public class UseLocation extends AppCompatActivity
                 switchToManualSelectLocationActivity();
             }
         });
+
         AlertDialog alert = dialog.create();
         alert.show();
 

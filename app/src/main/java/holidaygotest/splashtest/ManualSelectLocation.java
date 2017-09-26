@@ -52,7 +52,6 @@ public class ManualSelectLocation extends AppCompatActivity
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedCity = (String) parent.getItemAtPosition(position);
 
-
             }
 
             @Override
@@ -123,7 +122,7 @@ public class ManualSelectLocation extends AppCompatActivity
         return dataAdapterCountry;
     }
 
-    private void compileCityList(String selection)
+    public void compileCityList(String selection)
     {
         if(selection == "New Zealand")
         {
