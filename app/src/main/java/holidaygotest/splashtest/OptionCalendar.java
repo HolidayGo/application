@@ -24,6 +24,7 @@ public class OptionCalendar extends Activity
     CalendarView calender;
     TextView textview1;
     TextView textview2;
+    int counter = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,19 +36,41 @@ public class OptionCalendar extends Activity
         textview1= (TextView)findViewById(R.id.textView1);
         textview2 = (TextView)findViewById(R.id.textView2);
 
+
+
             calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
                 @Override
                 public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                     // TODO Auto-generated method stub
 
-                    textview1.setText("Start Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+                    changeText(counter, year, month, dayOfMonth);
+
+                    if(counter == 2)
+                    {
+                        counter = 1;
+                    }
+
+                    else
+                    {
+                        ++counter;
+                    }
                 }
             });
 
     }
 
-
+public void changeText(int count, int year, int month, int dayOfMonth)
+{
+    if(count == 1)
+    {
+        textview1.setText("Start Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+    }
+    else
+    {
+        textview2.setText("End Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+    }
+}
 
 
     public void confirm(View view)
