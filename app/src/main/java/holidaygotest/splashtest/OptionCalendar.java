@@ -32,57 +32,99 @@ public class OptionCalendar extends Activity
         super.onCreate(savedInstanceState);
         Log.d("app","Entered activity: OptionCalendar");
         setContentView(R.layout.activity_optioncalendar);
+
+        //Setting values
         calender = (CalendarView)findViewById(R.id.viewDates);
         textview1= (TextView)findViewById(R.id.textView1);
         textview2 = (TextView)findViewById(R.id.textView2);
 
 
 
-            calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
+         //Calls function to get selected date
+        calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
 
-                @Override
-                public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
-                    // TODO Auto-generated method stub
+            @Override
+            public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
+                // TODO Auto-generated method stub
 
-                    changeText(counter, year, month, dayOfMonth);
+                changeText(counter, year, month, dayOfMonth);
 
-                    if(counter == 2)
-                    {
-                        counter = 1;
-                    }
-
-                    else
-                    {
-                        ++counter;
-                    }
+                if(counter == 2)
+                {
+                    counter = 1;
                 }
-            });
+                else
+                {
+                    ++counter;
+                }
+            }
+        });
 
     }
 
-public void changeText(int count, int year, int month, int dayOfMonth)
-{
-    if(count == 1)
+
+    //Sets text to selected dates
+    public void changeText(int count, int year, int month, int dayOfMonth)
     {
-        textview1.setText("Start Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+
+        if(count == 1)
+
+        {
+            textview1.setText("Start Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+        }
+
+        else
+        {
+            textview2.setText("End Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
+        }
     }
-    else
-    {
-        textview2.setText("End Date is : " + dayOfMonth + " / " + (month + 1) + " / " + year);
-    }
-}
 
 
     public void confirm(View view)
     {
-        //CODE GOES HERE
-        Intent intent = new Intent(this, AppOptions.class);
+        //if no end date is selected, prompts user
+       final  Intent intent = new Intent(this, AppOptions.class);
+        if (new String("End Date not Selected").equals(new String(textview2.getText().toString())))
+        {
+            Log.d("app","No date selected");
+            AlertDialog show = new AlertDialog.Builder(this)
+                    .setMessage("Please select two dates!")
+                    .setCancelable(false)
+                    .setPositiveButton("OK", null)
+                    .show();
+        }
+        //if two dates are selected, prompts user to confirm
+        else
+        {
         Log.d("app","Confirm button pressed");
-        startActivity(intent);
+        AlertDialog show = new AlertDialog.Builder(this)
+                .setMessage("Confirm Dates: \n"+textview1.getText()+"\n"+textview2.getText())
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        //CODE GOES HERE - Needs to pass over dates
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        //Sets text back to original
+                        textview1.setText("Start Date not Selected");
+                        textview2.setText("End Date not Selected");
+                    }
+                })
+                .show();
+        }
+        //NOTE: Requires code to block the user from selecting an end date before the start!
 
 
     }
 
+    //Prompts user if wants to discard changes on back button press
     public void back(View view)
     {
         final Intent intent = new Intent(this, AppOptions.class);
@@ -103,10 +145,23 @@ public void changeText(int count, int year, int month, int dayOfMonth)
     }
 
 
-
+    // Prompts user if wants to discard changes on back press
     @Override
     public void onBackPressed()
     {
-        this.moveTaskToBack(true);
+        final Intent intent = new Intent(this, AppOptions.class);
+        Log.d("app","Back button pressed");
+        AlertDialog show = new AlertDialog.Builder(this)
+                .setMessage("Discard changes?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    public void onClick(DialogInterface dialog, int id)
+                    {
+                        startActivity(intent);
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

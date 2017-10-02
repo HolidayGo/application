@@ -40,6 +40,8 @@ public class UseLocation extends AppCompatActivity
 
     public void yesButton(View view)
     {
+        final Intent intent = new Intent(this, MainMenu.class);
+        Log.d("app", "Yes button pressed");
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //if location is turned OFF, display popup telling user to turn it on
@@ -101,12 +103,11 @@ public class UseLocation extends AppCompatActivity
                 //print the found location to the main menu screen
                 setLocation(location);
             }
-
+            startActivity(intent);
         }
 
-        Intent intent = new Intent(this, MainMenu.class);
-        Log.d("app", "Yes button pressed");
-        startActivity(intent);
+
+
     }
 
     private void diagBox()
