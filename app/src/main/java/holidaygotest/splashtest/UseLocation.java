@@ -28,6 +28,8 @@ import java.util.*;
 
 public class UseLocation extends AppCompatActivity
 {
+    LocationManager locationManager;
+    LocationListener locationListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,7 +44,7 @@ public class UseLocation extends AppCompatActivity
     {
         final Intent intent = new Intent(this, MainMenu.class);
         Log.d("app", "Yes button pressed");
-        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         //if location is turned OFF, display popup telling user to turn it on
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
@@ -62,9 +64,10 @@ public class UseLocation extends AppCompatActivity
                     }, 10);
                 }
             }
+            //permission granted to get device location
             else
             {
-                final LocationListener locationListener = new LocationListener()
+                locationListener = new LocationListener()
                 {
                     @Override
                     public void onLocationChanged(final Location location)
@@ -98,14 +101,17 @@ public class UseLocation extends AppCompatActivity
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
 
                 //get the last location from the GPS
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                if (location == null)
+                {
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                }
 
                 //print the found location to the main menu screen
                 setLocation(location);
             }
             startActivity(intent);
         }
-
     }
 
     private void diagBox()
@@ -159,8 +165,12 @@ public class UseLocation extends AppCompatActivity
 
     private void configureLocation()
     {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000, 1000, locationListener);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+        {
 
-            Log.d("app", "permission granted!");
+        }
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
     }
 
     @Override
