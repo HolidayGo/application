@@ -24,6 +24,8 @@ public class MainActivity extends Activity
         ProgressBar loadCircle = (ProgressBar) findViewById(R.id.progressBar3);
         loadCircle.getIndeterminateDrawable().setColorFilter(LTGRAY, android.graphics.PorterDuff.Mode.MULTIPLY);
 
+
+
         Runnable gpstest = new Runnable()
         {
             @Override

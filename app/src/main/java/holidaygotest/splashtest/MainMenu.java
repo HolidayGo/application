@@ -79,8 +79,10 @@ public class MainMenu extends Activity
 
     public void goToLocation(View view)
     {
-        Log.d("app","Entering the UseLocation activity...");
-        Intent intent = new Intent(this, AppOptions.class);
+        UserData.createDayList(50);
+
+        Log.d("app","Entering the AppOptions activity...");
+        Intent intent = new Intent(this, DayListActivity.class);
         startActivity(intent);
     }
 
