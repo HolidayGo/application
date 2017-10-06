@@ -61,14 +61,14 @@ public class UseLocation extends AppCompatActivity
                             Manifest.permission.ACCESS_FINE_LOCATION
                     }, 10);
                 }
-            } else
+            }
+            else
             {
                 final LocationListener locationListener = new LocationListener()
                 {
                     @Override
                     public void onLocationChanged(final Location location)
                     {
-
                         //update location if changed
                         setLocation(location);
                     }
@@ -98,15 +98,13 @@ public class UseLocation extends AppCompatActivity
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000, 1000, locationListener);
 
                 //get the last location from the GPS
-                Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
                 //print the found location to the main menu screen
                 setLocation(location);
             }
             startActivity(intent);
         }
-
-
 
     }
 
@@ -161,24 +159,12 @@ public class UseLocation extends AppCompatActivity
 
     private void configureLocation()
     {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-        {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
-            {
-                requestPermissions(new String[]
-                        {
-                                Manifest.permission.ACCESS_FINE_LOCATION,
-                                Manifest.permission.ACCESS_COARSE_LOCATION,
-                                Manifest.permission.INTERNET
-                        }, 10);
-            }
-        }
 
+            Log.d("app", "permission granted!");
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults)
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
     {
         switch (requestCode)
         {
