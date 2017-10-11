@@ -42,6 +42,7 @@ dependencies {
     // required if you want to use Mockito for unit tests
     // required if you want to use Mockito for Android tests
 
+    compile 'com.google.firebase:firebase-database:11.4.2'
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.+'
