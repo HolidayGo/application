@@ -9,5 +9,5 @@
                                         android:layout_marginLeft="16dp"
                                         android:layout_marginRight="16dp"
                                         app:layoutManager="LinearLayoutManager"
-                                        tools:context="holidaygotest.splashtest.DayListActivity"
+                                        tools:context="holidaygotest.splashtest.daygenerator.DayListActivity"
                                         tools:listitem="@layout/day_list_content"/>

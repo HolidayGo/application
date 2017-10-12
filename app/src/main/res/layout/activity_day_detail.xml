@@ -4,7 +4,7 @@
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
                                                  android:fitsSystemWindows="true"
-                                                 tools:context="holidaygotest.splashtest.DayDetailActivity"
+                                                 tools:context="holidaygotest.splashtest.daygenerator.DayDetailActivity"
                                                  tools:ignore="MergeRootFrame">
 
     <android.support.design.widget.AppBarLayout
@@ -42,12 +42,15 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="69dp"
+        android:layout_height="61dp"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@+id/day_detail_container"
+        android:backgroundTint="@android:color/holo_blue_dark"
+        android:elevation="10dp"
+        app:borderWidth="0dp"
         app:layout_anchorGravity="top|end"
-        app:srcCompat="@android:drawable/stat_notify_chat"/>
+        app:srcCompat="@drawable/penciledit"/>
 
 </android.support.design.widget.CoordinatorLayout>

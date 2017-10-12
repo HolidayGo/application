@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import holidaygotest.splashtest.daygenerator.Day;
+
 public class UserData
 {
     static String userLocation;

@@ -70,18 +70,18 @@
         <activity android:name=".ManualSelectLocation">
         </activity>
         <activity
-            android:name=".DayListActivity"
+            android:name=".daygenerator.DayListActivity"
             android:label="@string/title_day_list"
             android:theme="@style/AppTheme">
         </activity>
         <activity
-            android:name=".DayDetailActivity"
+            android:name=".daygenerator.DayDetailActivity"
             android:label="@string/title_day_detail"
-            android:parentActivityName=".DayListActivity"
+            android:parentActivityName=".daygenerator.DayListActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="holidaygotest.splashtest.DayListActivity"/>
+                android:value="holidaygotest.splashtest.daygenerator.DayListActivity"/>
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package holidaygotest.splashtest;
+package holidaygotest.splashtest.daygenerator;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.List;
+
+import holidaygotest.splashtest.R;
+import holidaygotest.splashtest.UserData;
 
 /**
  * An activity representing a list of Days. This activity

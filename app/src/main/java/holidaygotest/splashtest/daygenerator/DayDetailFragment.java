@@ -1,4 +1,4 @@
-package holidaygotest.splashtest;
+package holidaygotest.splashtest.daygenerator;
 
 import android.app.Activity;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import holidaygotest.splashtest.R;
+import holidaygotest.splashtest.UserData;
 
 /**
  * A fragment representing a single Day detail screen.
@@ -63,10 +66,10 @@ public class DayDetailFragment extends Fragment
     {
         View rootView = inflater.inflate(R.layout.day_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
+        // Show the item content as text in a TextView.
         if (day != null)
         {
-            ((TextView) rootView.findViewById(R.id.day_detail)).setText(day.dayTitle);
+            ((TextView) rootView.findViewById(R.id.day_detail)).setText(day.dayDetails);
         }
 
         return rootView;
