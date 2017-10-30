@@ -18,6 +18,7 @@ public class UserData
     public static HashMap<String, Day> dayMap;
 
 
+    //create a list of days that will have information/attributes placed inside of them
     public static void createDayList(int days)
     {
         listOfDays = new ArrayList<>();
@@ -31,6 +32,7 @@ public class UserData
         }
     }
 
+    //function creates a new Day object
     private static Day newDay(int number)
     {
         return new Day(number);

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import holidaygotest.splashtest.daygenerator.DayDetailActivity;
+import holidaygotest.splashtest.daygenerator.DayListActivity;
+
 public class OptionNorthSouth extends AppCompatActivity
 {
 
@@ -20,7 +23,7 @@ public class OptionNorthSouth extends AppCompatActivity
     public void northButton(View view)
     {
         //CODE GOES HERE
-        Intent intent = new Intent(this, FinalShare.class);
+        Intent intent = new Intent(this, DayListActivity.class);
         Log.d("app","North island button pressed");
         startActivity(intent);
     }
@@ -28,7 +31,7 @@ public class OptionNorthSouth extends AppCompatActivity
     public void southButton(View view)
     {
         //CODE GOES HERE
-        Intent intent = new Intent(this, FinalShare.class);
+        Intent intent = new Intent(this, DayListActivity.class);
         Log.d("app","South island button pressed");
         startActivity(intent);
     }

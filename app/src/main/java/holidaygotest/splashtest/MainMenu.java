@@ -40,6 +40,7 @@ public class MainMenu extends Activity
 
     }
 
+    //code ran when version text is pressed
     public void versionButton(View view)
     {
         //CODE GOES HERE
@@ -57,6 +58,7 @@ public class MainMenu extends Activity
         alert.show();
     }
 
+    //user presses the load button
     public void loadButton(View view)
     {
         //CODE GOES HERE
@@ -80,7 +82,7 @@ public class MainMenu extends Activity
         UserData.createDayList(50);
 
         Log.d("app","Entering the AppOptions activity...");
-        Intent intent = new Intent(this, DayListActivity.class);
+        Intent intent = new Intent(this, AppOptions.class);
         startActivity(intent);
     }
 

@@ -50,7 +50,7 @@ public class Day
             summary += "\nLocation: " + activity.location;
             summary += "\nGroup Size: " + activity.groupSize;
 
-            summary +="\n-------------------------\n";
+            summary +="\n--------------------------------------------------\n";
 
         }
         this.dayDetails = summary;
@@ -69,35 +69,42 @@ public class Day
 
     public void mockDay()
     {
+        final int HOUR = 60;            //an hour in minutes
+
         double hoursLeft = 24;          //24 hours in a day
         int duration;                   //how long each activity will last (random)
-
-        char alphabet = 'A';
-        boolean firstActivity = true;
+        char alphabet = 'A';            //used as placeholder text to name the activity generated
+        boolean firstActivity = true;   //is true so the first activity ran sets the time for when the user wakes up
 
         //day variables
-        String name;
-        String description;
-        double hours;
-        double cost;
-        String location;
-        int groupSize;
-        Date startTime = new Date();
+        String name;                    //name of the activity
+        String description;             //description of the activity
+        double hours;                   //how long the activity takes to complete (in hours)
+        double cost;                    //how much the  activity costs
+        String location;                //location of the activity
+        int groupSize;                  //size of the group that can partake in this activity
+        Date startTime = new Date();    //start time for the activity/end of the last
         Date endTime = new Date();      //end of the first activity/start of the next
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm");        //date formatting e.g. 15:45 for 3:45pm
+
+        //create start time of the day
         try
         {
             startTime = dateFormat.parse("07:00");        //day starts at 7:00am (minimum)
             //create random time to start the day between 7:00am and 10:30am
-            duration = RandomGenerator.getMinutes(210);     //generate a random number between 0-210 (intervals of 30) to get minutes after 7am
+            duration = RandomGenerator.getMinutes((int) (HOUR * 3.5));     //generate a random number between 0-210 (intervals of 30) to get random time frame in minutes
+            //add the generated added minutes to the base start time
             startTime = RandomGenerator.makeTimeJump(startTime.getTime(), duration);         //wake up between 7am and 10:30am
 
             hoursLeft -= (duration / 60d) + 7;       //7 since the base time is 7am (7 hours already gone)
         }
         catch (ParseException e)
         {
-            System.err.println("Error parsing date.");
+            //user can wake up early between 12am and 10:30 (not likely to happen)
+            duration = RandomGenerator.getMinutes((int) (HOUR * 10.5));     //generate a random number between 0-210 (intervals of 30) to get random time frame in minutes
+            //add the generated added minutes to the base start time
+            startTime = RandomGenerator.makeTimeJump(startTime.getTime(), duration);         //wake up between 7am and 10:30am
         }
 
         //create activities until no time left in the day
@@ -107,65 +114,65 @@ public class Day
             {
                 duration = 60;      //the application always gives the user(s) 1 hour to get ready for the day
                 endTime = RandomGenerator.makeTimeJump(startTime.getTime(), duration);         //the time this activity ends (1 hour after starting)
-                hours = duration / 60d;       //hours spent doing this activity (will always be 1)
+                hours = duration / HOUR;       //hours spent doing this activity (will always be 1)
                 cost = 0;     //sleeping is free
                 name = "Wake up!";
                 description = "The time you will wake up";
-                location = "hotel";
+                location = "Hotel";
                 groupSize = 1;
 
                 hoursLeft -= hours;
-                firstActivity = false;
+                firstActivity = false;      //if statement won't be ran again
             }
 
             //the day officially begins
             else
             {
-                duration = 0;
+                duration = 0;       //reset duration time
 
                 if(hoursLeft > 3)
                 {
-                    while (duration == 0)
+                    while (duration == 0)   //duration of an activity cannot be 0 minutes
                     {
-                        if(hoursLeft <= 5)      //prevent overflow with time
+                        if(hoursLeft <= 5)      //prevent overflow with time (e.g. 4 hour activity when only 2 hours left in the day)
                         {
-                            duration = RandomGenerator.getMinutes((int) (60 * hoursLeft));
+                            duration = RandomGenerator.getMinutes((int) (HOUR * hoursLeft));
                         }
                         else
                         {
-                            duration = RandomGenerator.getMinutes(300);     //activity lasts for up to 5 hours
+                            duration = RandomGenerator.getMinutes(HOUR * 5);     //activity lasts for up to 5 hours
                         }
                     }
                     startTime = endTime;
 
                     endTime = RandomGenerator.makeTimeJump(startTime.getTime(), duration);         //wake up between 7am and 10:30am
 
-                    hours = duration / 60d;     //hours spent doing this activity
+                    hours = duration / HOUR;     //hours spent doing this activity
 
                     cost = 50;          //estimated activity cost will be $50
                     name = "Activity "+alphabet;
                     description = "Description of activity "+alphabet+" will be displayed here!";
-                    location = "Somewhere Activity "+alphabet+" belongs.";
+                    location = "Location of Activity "+alphabet+" here.";
                     groupSize = 2;
 
                     hoursLeft -= hours;        //adjust the number of hours left in the day
-                    ++alphabet;
+                    ++alphabet;                 //increment to the next activity name
                 }
                 else    //user will go to bed between 9pm and 12am
                 {
                     cost = 0;       //sleeping is free
                     name = "Sleep";
                     description = "The time you will go to sleep";
-                    location = "hotel";
+                    location = "Hotel";
                     groupSize = 1;
 
-                    hours = hoursLeft;
+                    hours = hoursLeft;  //the user has the rest of the day to prepare to go to sleep
                     hoursLeft = 0;      //none left so a new day begins/created
                     startTime = endTime;        //start time is when the last activity has finished
                 }
-
             }
 
+            //add the generated day to the array of days
             today.add(new DayEvent(name, description, hours, cost, location, groupSize, startTime));
         }
     }
